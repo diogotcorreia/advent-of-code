@@ -5,5 +5,8 @@ The event consists on solving various programming challenges, starting on Decemb
 
 ## Solved Puzzles
 
+- **2017**: Mainly solved in Rust, work in progress
 - **2018**: Mainly solved in NodeJS, up to puzzle 16
+- **2019**: Mainly solved in C++, work in progress
 - **2020**: Mainly solved in Python, all puzzles
+- **2021**: Mainly solved in Rust, work in progress
