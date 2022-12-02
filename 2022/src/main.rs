@@ -1,12 +1,12 @@
 use std::env;
+use std::fmt::Display;
 use std::fs::File;
-use std::io::{BufRead, BufReader};
+use std::io::{BufRead, BufReader, Result};
 
 mod day01;
+mod day02;
 
-fn main() -> std::io::Result<()> {
-    let days = vec![day01::AocDay01::preprocessing];
-
+fn main() -> Result<()> {
     let puzzle_index: usize = env::args()
         .skip(1)
         .next()
@@ -19,15 +19,24 @@ fn main() -> std::io::Result<()> {
         .lines()
         .map(|r| r.expect("I/O error while reading input"));
 
-    let puzzle = days.get(puzzle_index - 1).unwrap()(input);
-    println!("Part 1: {}", puzzle.part1());
-    println!("Part 2: {}", puzzle.part2());
+    match puzzle_index {
+        1 => run_day(day01::AocDay01::preprocessing(input))?,
+        2 => run_day(day02::AocDay02::preprocessing(input))?,
+        _ => unimplemented!("Unknown puzzle"),
+    };
 
     Ok(())
 }
 
-pub trait AocDay {
+pub trait AocDay<R1: Display, R2: Display> {
     fn preprocessing(lines: impl Iterator<Item = String>) -> Self;
-    fn part1(&self) -> i64;
-    fn part2(&self) -> i64;
+    fn part1(&self) -> R1;
+    fn part2(&self) -> R2;
+}
+
+fn run_day<T: AocDay<R1, R2>, R1: Display, R2: Display>(puzzle: T) -> Result<()> {
+    println!("Part 1: {}", puzzle.part1());
+    println!("Part 2: {}", puzzle.part2());
+
+    Ok(())
 }

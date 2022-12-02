@@ -4,7 +4,7 @@ pub struct AocDay01 {
     calories_by_elves: Vec<i32>,
 }
 
-impl AocDay for AocDay01 {
+impl AocDay<i32, i32> for AocDay01 {
     fn preprocessing(lines: impl Iterator<Item = String>) -> Self {
         let mut vec: Vec<i32> = Vec::new();
 
@@ -38,15 +38,10 @@ impl AocDay for AocDay01 {
             calories_by_elves: vec,
         };
     }
-    fn part1(&self) -> i64 {
-        self.calories_by_elves.last().unwrap().to_owned().into()
+    fn part1(&self) -> i32 {
+        self.calories_by_elves.last().unwrap().clone()
     }
-    fn part2(&self) -> i64 {
-        self.calories_by_elves
-            .iter()
-            .rev()
-            .take(3)
-            .sum::<i32>()
-            .into()
+    fn part2(&self) -> i32 {
+        self.calories_by_elves.iter().rev().take(3).sum()
     }
 }
