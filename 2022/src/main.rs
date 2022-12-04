@@ -6,6 +6,7 @@ use std::io::{BufRead, BufReader, Result};
 mod day01;
 mod day02;
 mod day03;
+mod day04;
 
 fn main() -> Result<()> {
     let puzzle_index: usize = env::args()
@@ -24,6 +25,7 @@ fn main() -> Result<()> {
         1 => run_day(day01::AocDay01::preprocessing(input))?,
         2 => run_day(day02::AocDay02::preprocessing(input))?,
         3 => run_day(day03::AocDay03::preprocessing(input))?,
+        4 => run_day(day04::AocDay04::preprocessing(input))?,
         _ => unimplemented!("Unknown puzzle"),
     };
 
