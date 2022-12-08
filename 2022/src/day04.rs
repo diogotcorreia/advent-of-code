@@ -9,7 +9,7 @@ impl FromStr for SectionPair {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let pair = s
-            .split_once(",")
+            .split_once(',')
             .expect("Section pair must contain , delimiter");
 
         Ok(SectionPair(pair.0.parse()?, pair.1.parse()?))
@@ -31,7 +31,7 @@ impl FromStr for Section {
     type Err = ParseIntError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let bounds = s.split_once("-").expect("Section must contain - delimiter");
+        let bounds = s.split_once('-').expect("Section must contain - delimiter");
 
         Ok(Self::from_range(bounds.0.parse()?, bounds.1.parse()?))
     }
@@ -94,7 +94,7 @@ impl AocDay<usize, usize> for AocDay04 {
 mod day04tests {
     use super::*;
 
-    const INPUT: &'static [&'static str] = &[
+    const INPUT: &[&str] = &[
         "2-4,6-8", "2-3,4-5", "5-7,7-9", "2-8,3-7", "6-6,4-6", "2-6,4-8",
     ];
 

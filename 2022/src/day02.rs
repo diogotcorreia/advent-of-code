@@ -22,8 +22,8 @@ impl Play {
     fn from_str(input: &str) -> Self {
         match input {
             "A" | "X" => Self::Rock,
-            "B" | "Y" => Self::Rock,
-            "C" | "Z" => Self::Rock,
+            "B" | "Y" => Self::Paper,
+            "C" | "Z" => Self::Scissors,
             _ => unreachable!("Unknown play type"),
         }
     }
@@ -50,12 +50,12 @@ impl Play {
     }
 }
 
-impl Into<Outcome> for Play {
-    fn into(self) -> Outcome {
-        match self {
-            Self::Rock => Outcome::Lose,
-            Self::Paper => Outcome::Draw,
-            Self::Scissors => Outcome::Win,
+impl From<Play> for Outcome {
+    fn from(play: Play) -> Self {
+        match play {
+            Play::Rock => Self::Lose,
+            Play::Paper => Self::Draw,
+            Play::Scissors => Self::Win,
         }
     }
 }
@@ -94,7 +94,7 @@ impl AocDay<i32, i32> for AocDay02 {
         for line in lines {
             let guide_entry: Vec<Play> = line
                 .split_whitespace()
-                .map(|x| Play::from_str(x))
+                .map(Play::from_str)
                 .take(2)
                 .collect();
 
@@ -106,7 +106,7 @@ impl AocDay<i32, i32> for AocDay02 {
             guide.push(guide_entry);
         }
 
-        return AocDay02 { guide };
+        AocDay02 { guide }
     }
     fn part1(&self) -> i32 {
         self.guide
@@ -120,7 +120,7 @@ impl AocDay<i32, i32> for AocDay02 {
         self.guide
             .iter()
             .map(|(opponent, player)| {
-                let player: Outcome = player.clone().into();
+                let player: Outcome = (*player).into();
                 player.get_play_points(opponent) + player.get_outcome_points()
             })
             .sum()
@@ -131,7 +131,7 @@ impl AocDay<i32, i32> for AocDay02 {
 mod day02tests {
     use super::*;
 
-    const INPUT: &'static [&'static str] = &["A Y", "B X", "C Z"];
+    const INPUT: &[&str] = &["A Y", "B X", "C Z"];
 
     #[test]
     fn part1() {

@@ -44,7 +44,7 @@ impl FromStr for Move {
     }
 }
 
-fn move_item(cranes: &mut Vec<Crane>, mov: &Move) {
+fn move_item(cranes: &mut [Crane], mov: &Move) {
     for _ in 0..mov.qnt {
         let crane_from = cranes.get_mut(mov.from).expect("from crane must exist");
         let element = crane_from.pop_front().expect("crane is empty");
@@ -53,7 +53,7 @@ fn move_item(cranes: &mut Vec<Crane>, mov: &Move) {
     }
 }
 
-fn move_item_keep_order(cranes: &mut Vec<Crane>, mov: &Move) {
+fn move_item_keep_order(cranes: &mut [Crane], mov: &Move) {
     let mut tmp_crane = Vec::new();
 
     let crane_from = cranes.get_mut(mov.from).expect("from crane must exist");
@@ -82,11 +82,11 @@ impl AocDay<String, String> for AocDay05 {
         loop {
             let line = lines.next().expect("crane not finished");
             let crane_len = (line.len() + 1) / 4;
-            if !line.contains("[") {
+            if !line.contains('[') {
                 // finished cranes
                 break;
             }
-            if cranes.len() == 0 {
+            if cranes.is_empty() {
                 // first line
                 for _ in 0..crane_len {
                     cranes.push(LinkedList::new());
@@ -102,7 +102,7 @@ impl AocDay<String, String> for AocDay05 {
 
         let moves: Vec<Move> = lines.filter_map(|x| x.parse().ok()).collect();
 
-        return AocDay05 { cranes, moves };
+        AocDay05 { cranes, moves }
     }
     fn part1(&self) -> String {
         let mut cranes = self.cranes.clone();
@@ -126,7 +126,7 @@ impl AocDay<String, String> for AocDay05 {
 mod day05tests {
     use super::*;
 
-    const INPUT: &'static [&'static str] = &[
+    const INPUT: &[&str] = &[
         "    [D]    ",
         "[N] [C]    ",
         "[Z] [M] [P]",

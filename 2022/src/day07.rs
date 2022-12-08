@@ -13,13 +13,10 @@ enum INode {
 impl INode {
     fn get_or_create_dir(&mut self, dir_name: &str) -> &mut INode {
         if let Self::Directory { children, .. } = self {
-            let exists = children
-                .iter_mut()
-                .find(|x| match x {
-                    Self::Directory { name, .. } => name == dir_name,
-                    _ => false,
-                })
-                .is_some();
+            let exists = children.iter_mut().any(|x| match x {
+                Self::Directory { name, .. } => name == dir_name,
+                _ => false,
+            });
 
             if !exists {
                 let new_dir = INode::Directory {
@@ -54,10 +51,7 @@ impl INode {
         if let Self::Directory { children, .. } = self {
             return children
                 .iter()
-                .filter(|x| match x {
-                    Self::Directory { .. } => true,
-                    _ => false,
-                })
+                .filter(|x| matches!(x, Self::Directory { .. }))
                 .collect();
         }
 
@@ -83,38 +77,33 @@ fn preprocessing_recursive(
     curr_inode: &mut INode,
     mut lines: impl Iterator<Item = String>,
 ) -> impl Iterator<Item = String> {
-    loop {
-        match lines.next() {
-            Some(line) => {
-                let mut parts = line.split_ascii_whitespace();
-                match parts.next().expect("invalid input") {
-                    "$" => match parts.next().expect("invalid dollar command") {
-                        "cd" => {
-                            let path = parts.next().expect("cd missing path");
-                            match path {
-                                "/" => unreachable!("only the first line does this"),
-                                ".." => {
-                                    return lines;
-                                }
-                                _ => {
-                                    let new_inode = curr_inode.get_or_create_dir(path);
-                                    lines = preprocessing_recursive(new_inode, lines);
-                                }
-                            }
+    while let Some(line) = lines.next() {
+        let mut parts = line.split_ascii_whitespace();
+        match parts.next().expect("invalid input") {
+            "$" => match parts.next().expect("invalid dollar command") {
+                "cd" => {
+                    let path = parts.next().expect("cd missing path");
+                    match path {
+                        "/" => unreachable!("only the first line does this"),
+                        ".." => {
+                            return lines;
                         }
-                        "ls" => {}
-                        _ => unreachable!("not part of the problem input"),
-                    },
-                    "dir" => {} // ignore empty dirs, just create them on cd
-                    size @ _ => {
-                        // we can ignore file name, it's not used for anything
-                        curr_inode.add_file(INode::File {
-                            size: size.parse().expect("size not a number"),
-                        });
+                        _ => {
+                            let new_inode = curr_inode.get_or_create_dir(path);
+                            lines = preprocessing_recursive(new_inode, lines);
+                        }
                     }
                 }
+                "ls" => {}
+                _ => unreachable!("not part of the problem input"),
+            },
+            "dir" => {} // ignore empty dirs, just create them on cd
+            size => {
+                // we can ignore file name, it's not used for anything
+                curr_inode.add_file(INode::File {
+                    size: size.parse().expect("size not a number"),
+                });
             }
-            None => break,
         }
     }
     lines
@@ -178,7 +167,7 @@ impl AocDay<usize, usize> for AocDay07 {
         let mut lines = preprocessing_recursive(&mut root, lines);
         assert!(lines.next().is_none());
 
-        return AocDay07 { root };
+        AocDay07 { root }
     }
 
     fn part1(&self) -> usize {
@@ -199,7 +188,7 @@ impl AocDay<usize, usize> for AocDay07 {
 mod day07tests {
     use super::*;
 
-    const INPUT: &'static [&'static str] = &[
+    const INPUT: &[&str] = &[
         "$ cd /",
         "$ ls",
         "dir a",

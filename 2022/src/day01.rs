@@ -34,12 +34,12 @@ impl AocDay<i32, i32> for AocDay01 {
 
         vec.sort();
 
-        return AocDay01 {
+        AocDay01 {
             calories_by_elves: vec,
-        };
+        }
     }
     fn part1(&self) -> i32 {
-        self.calories_by_elves.last().unwrap().clone()
+        *self.calories_by_elves.last().unwrap()
     }
     fn part2(&self) -> i32 {
         self.calories_by_elves.iter().rev().take(3).sum()

@@ -87,7 +87,7 @@ impl AocDay<i32, i32> for AocDay03 {
             .iter()
             .map(|x| x.find_common_item())
             .map(|x| x.expect("rucksack did not have a common item"))
-            .map(|x| Rucksack::get_points_for_item(x))
+            .map(Rucksack::get_points_for_item)
             .sum()
     }
     fn part2(&self) -> i32 {
@@ -96,7 +96,7 @@ impl AocDay<i32, i32> for AocDay03 {
             .step_by(3)
             .map(|x| x[0].find_common_item_in_group(&x[1], &x[2]))
             .map(|x| x.expect("rucksack group did not have a common item"))
-            .map(|x| Rucksack::get_points_for_item(x))
+            .map(Rucksack::get_points_for_item)
             .sum()
     }
 }
@@ -105,7 +105,7 @@ impl AocDay<i32, i32> for AocDay03 {
 mod day03tests {
     use super::*;
 
-    const INPUT: &'static [&'static str] = &[
+    const INPUT: &[&str] = &[
         "vJrwpWtwJgWrhcsFMMfFFhFp",
         "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
         "PmmdzqPrVvPwwTWBwg",

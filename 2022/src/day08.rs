@@ -89,7 +89,7 @@ impl AocDay<usize, usize> for AocDay08 {
 
         assert_eq!(forest.0.len(), forest.1 * forest.1);
 
-        return AocDay08 { forest };
+        AocDay08 { forest }
     }
     fn part1(&self) -> usize {
         let mut visible_trees = HashSet::new();
@@ -115,7 +115,7 @@ impl AocDay<usize, usize> for AocDay08 {
 mod day08tests {
     use super::*;
 
-    const INPUT: &'static [&'static str] = &["30373", "25512", "65332", "33549", "35390"];
+    const INPUT: &[&str] = &["30373", "25512", "65332", "33549", "35390"];
 
     #[test]
     fn part1() {

@@ -14,8 +14,7 @@ mod day08;
 
 fn main() -> Result<()> {
     let puzzle_index: usize = env::args()
-        .skip(1)
-        .next()
+        .nth(1)
         .expect("Please provide a the day number")
         .parse()
         .expect("Puzzle day must be a number");

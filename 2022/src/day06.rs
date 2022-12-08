@@ -27,7 +27,7 @@ impl StartOfPacketMarker {
     }
 
     fn is_valid(&self) -> bool {
-        let mut v: Vec<u8> = self.buffer.iter().map(|x| *x).collect();
+        let mut v: Vec<u8> = self.buffer.iter().copied().collect();
 
         v.sort();
         v.dedup();
@@ -52,7 +52,7 @@ fn find_start_of_packet_start_index(size: usize, datastream: &String) -> usize {
 impl AocDay<usize, usize> for AocDay06 {
     fn preprocessing(mut lines: impl Iterator<Item = String>) -> Self {
         let datastream = lines.next().expect("input must have at least a line");
-        return AocDay06 { datastream };
+        AocDay06 { datastream }
     }
     fn part1(&self) -> usize {
         find_start_of_packet_start_index(4, &self.datastream)
@@ -66,11 +66,11 @@ impl AocDay<usize, usize> for AocDay06 {
 mod day06tests {
     use super::*;
 
-    const INPUT1: &'static [&'static str] = &["mjqjpqmgbljsphdztnvjfqwrcgsmlb"];
-    const INPUT2: &'static [&'static str] = &["bvwbjplbgvbhsrlpgdmjqwftvncz"];
-    const INPUT3: &'static [&'static str] = &["nppdvjthqldpwncqszvftbrmjlhg"];
-    const INPUT4: &'static [&'static str] = &["nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg"];
-    const INPUT5: &'static [&'static str] = &["zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"];
+    const INPUT1: &[&str] = &["mjqjpqmgbljsphdztnvjfqwrcgsmlb"];
+    const INPUT2: &[&str] = &["bvwbjplbgvbhsrlpgdmjqwftvncz"];
+    const INPUT3: &[&str] = &["nppdvjthqldpwncqszvftbrmjlhg"];
+    const INPUT4: &[&str] = &["nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg"];
+    const INPUT5: &[&str] = &["zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"];
 
     #[test]
     fn part1_input1() {
