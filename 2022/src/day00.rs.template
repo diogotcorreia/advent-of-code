@@ -8,7 +8,7 @@ impl AocDay<i32, i32> for AocDay00 {
     fn preprocessing(lines: impl Iterator<Item = String>) -> Self {
         // TODO
 
-        return AocDay00 { /* TODO */ };
+        AocDay00 { /* TODO */ }
     }
     fn part1(&self) -> i32 {
         0
@@ -22,7 +22,7 @@ impl AocDay<i32, i32> for AocDay00 {
 mod day00tests {
     use super::*;
 
-    const INPUT: &'static [&'static str] = &[""];
+    const INPUT: &[&str] = &[""];
 
     #[test]
     fn part1() {
