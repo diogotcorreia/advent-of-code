@@ -13,6 +13,7 @@ mod day07;
 mod day08;
 mod day09;
 mod day10;
+mod day11;
 
 fn main() -> Result<()> {
     let puzzle_index: usize = env::args()
@@ -37,6 +38,7 @@ fn main() -> Result<()> {
         8 => run_day(day08::AocDay08::preprocessing(input))?,
         9 => run_day(day09::AocDay09::preprocessing(input))?,
         10 => run_day(day10::AocDay10::preprocessing(input))?,
+        11 => run_day(day11::AocDay11::preprocessing(input))?,
         _ => unimplemented!("Unknown puzzle"),
     };
 

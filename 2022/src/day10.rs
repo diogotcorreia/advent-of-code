@@ -54,7 +54,6 @@ impl AocDay<i32, String> for AocDay10 {
             .fold(
                 (1i32, 0i32, 1usize, Vec::new()),
                 |(register, mut strength, cycle, mut image), opcode| {
-                    // TODO
                     if is_strength_cycle(cycle) {
                         strength += cycle as i32 * register;
                     }
