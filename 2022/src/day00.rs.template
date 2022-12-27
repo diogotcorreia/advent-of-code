@@ -11,10 +11,10 @@ impl AocDay<i32, i32> for AocDay00 {
         AocDay00 { /* TODO */ }
     }
     fn part1(&self) -> i32 {
-        0
+        todo!()
     }
     fn part2(&self) -> i32 {
-        0
+        todo!()
     }
 }
 
@@ -27,12 +27,12 @@ mod day00tests {
     #[test]
     fn part1() {
         let day = AocDay00::preprocessing(INPUT.iter().map(|x| String::from(*x)));
-        assert_eq!(day.part1(), 0);
+        assert_eq!(day.part1(), todo!());
     }
 
     #[test]
     fn part2() {
         let day = AocDay00::preprocessing(INPUT.iter().map(|x| String::from(*x)));
-        assert_eq!(day.part2(), 0);
+        assert_eq!(day.part2(), todo!());
     }
 }
