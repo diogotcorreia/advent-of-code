@@ -1,3 +1,4 @@
+#![feature(linked_list_cursors)]
 use std::env;
 use std::fmt::Display;
 use std::fs::File;
@@ -22,6 +23,7 @@ mod day16;
 mod day17;
 mod day18;
 mod day19;
+mod day20;
 
 fn main() -> Result<()> {
     let puzzle_index: usize = env::args()
@@ -59,6 +61,7 @@ fn main() -> Result<()> {
         17 => run_day(day17::AocDay17::preprocessing(input), part_number)?,
         18 => run_day(day18::AocDay18::preprocessing(input), part_number)?,
         19 => run_day(day19::AocDay19::preprocessing(input), part_number)?,
+        20 => run_day(day20::AocDay20::preprocessing(input), part_number)?,
         _ => unimplemented!("Unknown puzzle"),
     };
 
