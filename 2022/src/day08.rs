@@ -104,7 +104,6 @@ impl AocDay<usize, usize> for AocDay08 {
     }
     fn part2(&self) -> usize {
         (0..self.forest.0.len())
-            .into_iter()
             .map(|i| self.forest.scenic_score(i))
             .max()
             .expect("forest must not be empty")
