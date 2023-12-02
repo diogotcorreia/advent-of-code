@@ -5,7 +5,7 @@ use std::fs::File;
 use std::io::{BufRead, BufReader, Result};
 
 mod day01;
-// mod day02;
+mod day02;
 // mod day03;
 // mod day04;
 // mod day05;
@@ -48,7 +48,7 @@ fn main() -> Result<()> {
 
     match puzzle_index {
         1 => run_day(day01::AocDay01::preprocessing(input), part_number)?,
-        // 2 => run_day(day02::AocDay02::preprocessing(input), part_number)?,
+        2 => run_day(day02::AocDay02::preprocessing(input), part_number)?,
         // 3 => run_day(day03::AocDay03::preprocessing(input), part_number)?,
         // 4 => run_day(day04::AocDay04::preprocessing(input), part_number)?,
         // 5 => run_day(day05::AocDay05::preprocessing(input), part_number)?,
