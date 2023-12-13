@@ -1,3 +1,5 @@
+use ndarray::Array3;
+
 use crate::AocDay;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -20,7 +22,7 @@ struct DpState {
 }
 
 // [spring_i][contiguous_i][curr_block_len]
-type DpCache = Vec<Vec<Vec<Option<u64>>>>;
+type DpCache = Array3<Option<u64>>;
 
 impl Row {
     fn count_possibilities(&self) -> u64 {
@@ -31,10 +33,11 @@ impl Row {
                 contiguous_i: 0,
                 curr_block_len: 0,
             },
-            &mut vec![
-                vec![vec![None; max_block + 1]; self.contiguous.len() + 1];
-                self.springs.len() + 1
-            ],
+            &mut Array3::default((
+                self.springs.len() + 1,
+                self.contiguous.len() + 1,
+                max_block + 1,
+            )),
         )
     }
 
@@ -67,14 +70,19 @@ impl Row {
                     contiguous_i: state.contiguous_i,
                     curr_block_len: state.curr_block_len + 1,
                 };
-                if let Some(entry) = cache[new_state.spring_i][new_state.contiguous_i]
-                    [new_state.curr_block_len as usize]
-                {
+                if let Some(entry) = cache[(
+                    new_state.spring_i,
+                    new_state.contiguous_i,
+                    new_state.curr_block_len as usize,
+                )] {
                     count += entry;
                 } else {
                     let count_inner = self.count_possibilities_inner(&new_state, cache);
-                    cache[new_state.spring_i][new_state.contiguous_i]
-                        [new_state.curr_block_len as usize] = Some(count_inner);
+                    cache[(
+                        new_state.spring_i,
+                        new_state.contiguous_i,
+                        new_state.curr_block_len as usize,
+                    )] = Some(count_inner);
                     count += count_inner;
                 }
             }
@@ -88,14 +96,19 @@ impl Row {
                     contiguous_i: state.contiguous_i + 1.min(state.curr_block_len as usize),
                     curr_block_len: 0,
                 };
-                if let Some(entry) = cache[new_state.spring_i][new_state.contiguous_i]
-                    [new_state.curr_block_len as usize]
-                {
+                if let Some(entry) = cache[(
+                    new_state.spring_i,
+                    new_state.contiguous_i,
+                    new_state.curr_block_len as usize,
+                )] {
                     count += entry;
                 } else {
                     let count_inner = self.count_possibilities_inner(&new_state, cache);
-                    cache[new_state.spring_i][new_state.contiguous_i]
-                        [new_state.curr_block_len as usize] = Some(count_inner);
+                    cache[(
+                        new_state.spring_i,
+                        new_state.contiguous_i,
+                        new_state.curr_block_len as usize,
+                    )] = Some(count_inner);
                     count += count_inner;
                 }
             }
