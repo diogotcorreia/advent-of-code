@@ -26,7 +26,13 @@
             ])
             # rust-analyzer-nightly
             rust-analyzer
+            z3
+            rustPlatform.bindgenHook
           ];
+
+          shellHook = ''
+            export Z3_SYS_Z3_HEADER="${pkgs.z3.dev}/include/z3.h"
+          '';
         };
       }
     );
