@@ -10,4 +10,6 @@ The event consists on solving various programming challenges, starting on Decemb
 - **2019**: Mainly solved in C++, work in progress
 - **2020**: Mainly solved in Python, all puzzles
 - **2021**: Mainly solved in Rust, all puzzles
-- **2022**: Mainly solved in Rust, work in progress
+- **2022**: Mainly solved in Rust, all puzzles
+- **2023**: Mainly solved in Rust, all puzzles
+- **2024**: Mainly solved in Rust, all puzzles

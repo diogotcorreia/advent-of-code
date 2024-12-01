@@ -1,0 +1,11 @@
+[package]
+name = "aoc2024"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+members = [".", "common"]
+
+[dependencies]
+aoc-common = { path = "common" }
+itertools = "0.13.0"

@@ -1,0 +1,38 @@
+use aoc_common::AocDay;
+
+pub struct AocDay00 {
+    // TODO
+}
+
+impl AocDay<u32, u32> for AocDay00 {
+    fn preprocessing(lines: impl Iterator<Item = String>) -> Self {
+        // TODO
+
+        AocDay00 { /* TODO */ }
+    }
+    fn part1(&self) -> u32 {
+        todo!()
+    }
+    fn part2(&self) -> u32 {
+        todo!()
+    }
+}
+
+#[cfg(test)]
+mod day00tests {
+    use super::*;
+
+    const INPUT: &[&str] = &[""];
+
+    #[test]
+    fn part1() {
+        let day = AocDay00::preprocessing(INPUT.iter().map(|x| String::from(*x)));
+        assert_eq!(day.part1(), todo!());
+    }
+
+    #[test]
+    fn part2() {
+        let day = AocDay00::preprocessing(INPUT.iter().map(|x| String::from(*x)));
+        assert_eq!(day.part2(), todo!());
+    }
+}
