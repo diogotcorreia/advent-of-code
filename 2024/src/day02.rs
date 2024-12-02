@@ -1,4 +1,4 @@
-use aoc_common::AocDay;
+use aoc_common::{AocDay, DayError};
 use itertools::Itertools;
 
 enum Gradient {
@@ -31,16 +31,16 @@ pub struct AocDay02 {
 }
 
 impl AocDay<usize, usize> for AocDay02 {
-    fn preprocessing(lines: impl Iterator<Item = String>) -> Self {
+    fn preprocessing(lines: impl Iterator<Item = String>) -> Result<Self, DayError> {
         let records = lines
             .map(|l| {
                 l.split_whitespace()
-                    .map(|p| p.parse().expect("record entry is not number"))
-                    .collect_vec()
+                    .map(|p| p.parse())
+                    .process_results(|it| it.collect_vec())
             })
-            .collect_vec();
+            .process_results(|it| it.collect_vec())?;
 
-        AocDay02 { records }
+        Ok(AocDay02 { records })
     }
     fn part1(&self) -> usize {
         self.records
@@ -74,14 +74,16 @@ mod day02tests {
     ];
 
     #[test]
-    fn part1() {
-        let day = AocDay02::preprocessing(INPUT.iter().map(|x| String::from(*x)));
+    fn part1() -> Result<(), DayError> {
+        let day = AocDay02::preprocessing_tests(INPUT)?;
         assert_eq!(day.part1(), 2);
+        Ok(())
     }
 
     #[test]
-    fn part2() {
-        let day = AocDay02::preprocessing(INPUT.iter().map(|x| String::from(*x)));
+    fn part2() -> Result<(), DayError> {
+        let day = AocDay02::preprocessing_tests(INPUT)?;
         assert_eq!(day.part2(), 4);
+        Ok(())
     }
 }

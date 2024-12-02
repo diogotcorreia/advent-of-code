@@ -4,7 +4,7 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::num::ParseIntError;
 
-use crate::AocDay;
+use crate::{AocDay, DayError};
 
 #[derive(Debug)]
 pub enum Error {
@@ -12,11 +12,18 @@ pub enum Error {
     NoDayProvided,
     DayNotNumber(ParseIntError),
     PartNotNumber(ParseIntError),
+    DayErr(DayError),
 }
 
 impl From<std::io::Error> for Error {
     fn from(value: std::io::Error) -> Self {
         Error::IoErr(value)
+    }
+}
+
+impl From<DayError> for Error {
+    fn from(value: DayError) -> Self {
+        Error::DayErr(value)
     }
 }
 
