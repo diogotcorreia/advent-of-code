@@ -9,4 +9,5 @@ members = [".", "common"]
 [dependencies]
 aoc-common = { path = "common" }
 itertools = "0.13.0"
+ndarray = "0.16.1"
 regex = "1.11.1"

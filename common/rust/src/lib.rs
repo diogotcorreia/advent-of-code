@@ -1,6 +1,8 @@
 use std::{fmt::Display, num::ParseIntError};
 
 pub mod bootstrap;
+pub mod navigation;
+pub mod parsing;
 
 #[derive(Debug)]
 pub enum DayError {
