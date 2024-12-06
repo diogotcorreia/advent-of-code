@@ -58,7 +58,7 @@ pub enum Direction {
 }
 
 /// A vector of any type in 2D space
-#[derive(Debug, Default)]
+#[derive(Debug, Hash, Clone, PartialEq, Eq, Default)]
 pub struct Vec2D<T> {
     pub x: T,
     pub y: T,

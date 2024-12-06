@@ -7,6 +7,7 @@ pkgs.mkShell {
     rust-analyzer
     clippy
     hyperfine
+    cargo-flamegraph
   ];
 
   shellHook = ''
