@@ -57,6 +57,18 @@ pub enum Direction {
     NorthWest,
 }
 
+impl Direction {
+    pub fn get_all_orthogonal() -> impl Iterator<Item = Direction> {
+        [
+            Direction::North,
+            Direction::East,
+            Direction::South,
+            Direction::West,
+        ]
+        .into_iter()
+    }
+}
+
 /// A vector of any type in 2D space
 #[derive(Debug, Hash, Clone, PartialEq, Eq, Default)]
 pub struct Vec2D<T> {
