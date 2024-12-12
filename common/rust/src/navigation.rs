@@ -67,6 +67,19 @@ impl Direction {
         ]
         .into_iter()
     }
+
+    pub fn to_mask(&self) -> u8 {
+        match self {
+            Direction::North => 1 << 0,
+            Direction::East => 1 << 1,
+            Direction::South => 1 << 2,
+            Direction::West => 1 << 3,
+            Direction::NorthEast => 1 << 4,
+            Direction::SouthEast => 1 << 5,
+            Direction::SouthWest => 1 << 6,
+            Direction::NorthWest => 1 << 7,
+        }
+    }
 }
 
 /// A vector of any type in 2D space
