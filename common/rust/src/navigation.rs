@@ -1,4 +1,4 @@
-use num_traits::{CheckedAdd, CheckedMul, CheckedSub, One, Signed, Zero};
+use num_traits::{CheckedAdd, CheckedMul, CheckedSub, Euclid, One, Signed, Zero};
 
 /// The sign of an integer.
 enum Sign {
@@ -149,6 +149,15 @@ impl<T: PartialOrd + Default> Vec2D<T> {
 
     pub fn bind_to_map(self, upper_bound: &Self) -> Option<Self> {
         self.discard_out_of_bounds(&Self::default(), upper_bound)
+    }
+}
+
+impl<T: Euclid> Vec2D<T> {
+    pub fn wrap_out_of_bounds(self, upper_bound: &Self) -> Self {
+        Self {
+            x: self.x.rem_euclid(&upper_bound.x),
+            y: self.y.rem_euclid(&upper_bound.y),
+        }
     }
 }
 
