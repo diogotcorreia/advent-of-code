@@ -4,16 +4,16 @@ pub struct AocDay00 {
     // TODO
 }
 
-impl AocDay<u32, u32> for AocDay00 {
+impl AocDay<usize, usize> for AocDay00 {
     fn preprocessing(lines: impl Iterator<Item = String>) -> Result<Self, DayError> {
         // TODO
 
         Ok(AocDay00 { /* TODO */ })
     }
-    fn part1(&self) -> u32 {
+    fn part1(&self) -> usize {
         todo!()
     }
-    fn part2(&self) -> u32 {
+    fn part2(&self) -> usize {
         todo!()
     }
 }
