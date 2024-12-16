@@ -80,6 +80,31 @@ impl Direction {
             Direction::NorthWest => 1 << 7,
         }
     }
+
+    pub fn rotate_cw_90(&self) -> Self {
+        match self {
+            Direction::North => Direction::East,
+            Direction::NorthEast => Direction::SouthEast,
+            Direction::East => Direction::South,
+            Direction::SouthEast => Direction::SouthWest,
+            Direction::South => Direction::West,
+            Direction::SouthWest => Direction::NorthWest,
+            Direction::West => Direction::North,
+            Direction::NorthWest => Direction::NorthEast,
+        }
+    }
+    pub fn rotate_ccw_90(&self) -> Self {
+        match self {
+            Direction::North => Direction::West,
+            Direction::NorthEast => Direction::NorthWest,
+            Direction::East => Direction::North,
+            Direction::SouthEast => Direction::NorthEast,
+            Direction::South => Direction::East,
+            Direction::SouthWest => Direction::SouthEast,
+            Direction::West => Direction::South,
+            Direction::NorthWest => Direction::SouthWest,
+        }
+}
 }
 
 /// A vector of any type in 2D space

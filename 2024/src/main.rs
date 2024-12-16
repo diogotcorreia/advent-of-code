@@ -20,7 +20,7 @@ mod day12;
 mod day13;
 mod day14;
 mod day15;
-// mod day16;
+mod day16;
 // mod day17;
 // mod day18;
 // mod day19;
@@ -53,7 +53,7 @@ fn main() -> Result<(), Error> {
         13 => run_day(day13::AocDay13::preprocessing(input)?, part_number),
         14 => run_day(day14::AocDay14::preprocessing(input)?, part_number),
         15 => run_day(day15::AocDay15::preprocessing(input)?, part_number),
-        // 16 => run_day(day16::AocDay16::preprocessing(input)?, part_number),
+        16 => run_day(day16::AocDay16::preprocessing(input)?, part_number),
         // 17 => run_day(day17::AocDay17::preprocessing(input)?, part_number),
         // 18 => run_day(day18::AocDay18::preprocessing(input)?, part_number),
         // 19 => run_day(day19::AocDay19::preprocessing(input)?, part_number),
