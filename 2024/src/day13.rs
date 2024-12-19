@@ -10,8 +10,12 @@ struct Game {
 }
 
 fn parse_loc(value: &str) -> Result<Pos, DayError> {
-    let (_, pos) = value.split_once(": ").ok_or(DayError::GenericParseErr("can't split on ': '"))?;
-    let (x, y) = pos.split_once(", ").ok_or(DayError::GenericParseErr("can't split on ', '"))?;
+    let (_, pos) = value
+        .split_once(": ")
+        .ok_or(DayError::GenericParseErr("can't split on ': '"))?;
+    let (x, y) = pos
+        .split_once(", ")
+        .ok_or(DayError::GenericParseErr("can't split on ', '"))?;
     Ok(Pos::new(x[2..].parse()?, y[2..].parse()?))
 }
 

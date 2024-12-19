@@ -104,7 +104,7 @@ impl Direction {
             Direction::West => Direction::South,
             Direction::NorthWest => Direction::SouthWest,
         }
-}
+    }
 }
 
 /// A vector of any type in 2D space
