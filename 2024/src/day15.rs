@@ -3,33 +3,24 @@ use aoc_common::{
     parsing::try_parse_2d_array,
     AocDay, DayError,
 };
+use aoc_common_macros::TryFromChar;
 use itertools::Itertools;
 use ndarray::Array2;
 
 type Pos = Vec2D<usize>;
 
-#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy, TryFromChar)]
 enum Tile {
+    #[char_repr = '#']
     Wall,
+    #[char_repr = '.']
     Air,
+    #[char_repr = 'O']
     Box,
     BoxLeft,
     BoxRight,
+    #[char_repr = '@']
     Robot,
-}
-
-impl TryFrom<char> for Tile {
-    type Error = DayError;
-
-    fn try_from(value: char) -> Result<Self, Self::Error> {
-        match value {
-            '#' => Ok(Self::Wall),
-            '.' => Ok(Self::Air),
-            'O' => Ok(Self::Box),
-            '@' => Ok(Self::Robot),
-            _ => Err(DayError::GenericParseErr("unknown character in map")),
-        }
-    }
 }
 
 struct Move {

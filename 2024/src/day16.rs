@@ -3,31 +3,22 @@ use aoc_common::{
     parsing::try_parse_2d_array,
     AocDay, DayError,
 };
+use aoc_common_macros::TryFromChar;
 use ndarray::Array2;
 use pathfinding::prelude::{astar, astar_bag};
 
 type Pos = Vec2D<usize>;
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, TryFromChar)]
 enum Tile {
+    #[char_repr = '#']
     Wall,
+    #[char_repr = '.']
     Air,
+    #[char_repr = 'S']
     Start,
+    #[char_repr = 'E']
     End,
-}
-
-impl TryFrom<char> for Tile {
-    type Error = DayError;
-
-    fn try_from(value: char) -> Result<Self, Self::Error> {
-        match value {
-            '#' => Ok(Self::Wall),
-            '.' => Ok(Self::Air),
-            'S' => Ok(Self::Start),
-            'E' => Ok(Self::End),
-            _ => Err(DayError::GenericParseErr("unknown character in map")),
-        }
-    }
 }
 
 fn find_adjacent_pos(

@@ -6,31 +6,22 @@ use std::{
 };
 
 use aoc_common::{AocDay, DayError};
+use aoc_common_macros::TryFromChar;
 use itertools::Itertools;
 use pathfinding::prelude::{count_paths, dijkstra};
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, TryFromChar)]
 enum Color {
+    #[char_repr = 'w']
     White,
+    #[char_repr = 'u']
     Blue,
+    #[char_repr = 'b']
     Black,
+    #[char_repr = 'r']
     Red,
+    #[char_repr = 'g']
     Green,
-}
-
-impl TryFrom<char> for Color {
-    type Error = DayError;
-
-    fn try_from(value: char) -> Result<Self, Self::Error> {
-        match value {
-            'w' => Ok(Self::White),
-            'u' => Ok(Self::Blue),
-            'b' => Ok(Self::Black),
-            'r' => Ok(Self::Red),
-            'g' => Ok(Self::Green),
-            _ => Err(DayError::GenericParseErr("unknown color character")),
-        }
-    }
 }
 
 #[derive(Debug, PartialEq, Eq, Hash)]

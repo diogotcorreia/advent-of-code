@@ -32,10 +32,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "aoc-common-macros"
+version = "0.1.0"
+dependencies = [
+ "quote",
+ "syn 2.0.90",
+]
+
+[[package]]
 name = "aoc2024"
 version = "0.1.0"
 dependencies = [
  "aoc-common",
+ "aoc-common-macros",
  "itertools",
  "memoize",
  "ndarray",

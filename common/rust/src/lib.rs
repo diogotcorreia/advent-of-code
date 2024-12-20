@@ -8,6 +8,7 @@ pub mod parsing;
 pub enum DayError {
     NumParseErr(ParseIntError),
     GenericParseErr(&'static str),
+    TryFromCharErr(&'static str),
 }
 
 impl From<ParseIntError> for DayError {

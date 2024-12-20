@@ -3,29 +3,19 @@ use aoc_common::{
     parsing::try_parse_2d_array,
     AocDay, DayError,
 };
+use aoc_common_macros::TryFromChar;
 use ndarray::Array2;
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, TryFromChar)]
 enum Letter {
+    #[char_repr = 'X']
     X,
+    #[char_repr = 'M']
     M,
+    #[char_repr = 'A']
     A,
+    #[char_repr = 'S']
     S,
-    Other,
-}
-
-impl TryFrom<char> for Letter {
-    type Error = ();
-
-    fn try_from(value: char) -> Result<Self, Self::Error> {
-        Ok(match value {
-            'X' => Self::X,
-            'M' => Self::M,
-            'A' => Self::A,
-            'S' => Self::S,
-            _ => Self::Other,
-        })
-    }
 }
 
 type Pos = Vec2D<usize>;

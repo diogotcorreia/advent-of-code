@@ -4,10 +4,11 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members = [".", "common"]
+members = [".", "common", "common/macros"]
 
 [dependencies]
 aoc-common = { path = "common" }
+aoc-common-macros = { path = "common/macros" }
 itertools = "0.13.0"
 memoize = "0.4.2"
 ndarray = "0.16.1"

@@ -3,6 +3,7 @@ use aoc_common::{
     parsing::try_parse_2d_array,
     AocDay, DayError,
 };
+use aoc_common_macros::TryFromChar;
 use ndarray::Array2;
 
 fn rotate_cw(direction: &Direction) -> Direction {
@@ -25,24 +26,14 @@ fn dir_to_u8(direction: &Direction) -> u8 {
     }
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, TryFromChar)]
 enum Tile {
+    #[char_repr = '#']
     Obstacle,
+    #[char_repr = '.']
     Air,
+    #[char_repr = '^']
     StartingPosition,
-}
-
-impl TryFrom<char> for Tile {
-    type Error = DayError;
-
-    fn try_from(value: char) -> Result<Self, Self::Error> {
-        match value {
-            '#' => Ok(Self::Obstacle),
-            '.' => Ok(Self::Air),
-            '^' => Ok(Self::StartingPosition),
-            _ => Err(DayError::GenericParseErr("unknown character in map")),
-        }
-    }
 }
 
 type Pos = Vec2D<usize>;
