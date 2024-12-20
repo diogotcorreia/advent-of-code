@@ -65,7 +65,7 @@ fn maybe_move<const DRY_RUN: bool>(
         .vec_sum(&vec)
         .expect("overflow on vec sum (impossible due to walls)");
 
-    let can_move = match map[(destination.y, destination.x)] {
+    let can_move = match map[&destination] {
         Tile::Wall => false,
         Tile::Air => true,
         Tile::Box => maybe_move::<DRY_RUN>(&destination, direction, map).is_some(),
@@ -93,8 +93,8 @@ fn maybe_move<const DRY_RUN: bool>(
 
     if can_move {
         if !DRY_RUN {
-            map[(destination.y, destination.x)] = map[(from.y, from.x)];
-            map[(from.y, from.x)] = Tile::Air;
+            map[&destination] = map[from];
+            map[from] = Tile::Air;
         }
         Some(destination)
     } else {

@@ -77,9 +77,9 @@ impl AocDay<usize, usize> for AocDay08 {
                 let dist = IPos::new(dist_x, dist_y);
 
                 line_pos_iter(&b.pos, &dist, &self.map_bounds, iter::once(1))
-                    .for_each(|pos| antinode_map[(pos.y, pos.x)] = true);
+                    .for_each(|pos| antinode_map[&pos] = true);
                 line_pos_iter(&a.pos, &dist, &self.map_bounds, iter::once(-1))
-                    .for_each(|pos| antinode_map[(pos.y, pos.x)] = true);
+                    .for_each(|pos| antinode_map[&pos] = true);
             });
 
         antinode_map.iter().filter(|b| **b).count()
@@ -98,9 +98,9 @@ impl AocDay<usize, usize> for AocDay08 {
                 let dist = IPos::new(dist_x, dist_y);
 
                 line_pos_iter(&b.pos, &dist, &self.map_bounds, 0..)
-                    .for_each(|pos| antinode_map[(pos.y, pos.x)] = true);
+                    .for_each(|pos| antinode_map[&pos] = true);
                 line_pos_iter(&a.pos, &dist, &self.map_bounds, (0..).map(|v| -v))
-                    .for_each(|pos| antinode_map[(pos.y, pos.x)] = true);
+                    .for_each(|pos| antinode_map[&pos] = true);
             });
 
         antinode_map.iter().filter(|b| **b).count()

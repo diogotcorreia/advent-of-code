@@ -35,13 +35,13 @@ fn get_possible_next_positions(
     map: &Array2<Tile>,
     pos: Pos,
 ) -> impl Iterator<Item = Pos> + use<'_> {
-    let old_height = map[(pos.y, pos.x)].height;
+    let old_height = map[&pos].height;
     let map_bounds = Pos::new(map.ncols(), map.nrows());
     Direction::get_all_orthogonal()
         .flat_map(move |dir| pos.vec_sum(&Vec2D::<isize>::from(dir)))
         .flat_map(move |pos| pos.bind_to_map(&map_bounds))
         .filter(move |new_pos| {
-            let new_height = map[(new_pos.y, new_pos.x)].height;
+            let new_height = map[new_pos].height;
             old_height + 1 == new_height
         })
 }
@@ -59,7 +59,7 @@ impl AocDay<usize, usize> for AocDay10 {
         get_all_trailheads(&self.map)
             .map(|pos| {
                 dfs_reach(pos, |p| get_possible_next_positions(&self.map, p.clone()))
-                    .filter(|pos| self.map[(pos.y, pos.x)].height == 9)
+                    .filter(|pos| self.map[pos].height == 9)
                     .count()
             })
             .sum()
@@ -70,7 +70,7 @@ impl AocDay<usize, usize> for AocDay10 {
                 count_paths(
                     pos,
                     |p| get_possible_next_positions(&self.map, p.clone()),
-                    |pos| self.map[(pos.y, pos.x)].height == 9,
+                    |pos| self.map[pos].height == 9,
                 )
             })
             .sum()

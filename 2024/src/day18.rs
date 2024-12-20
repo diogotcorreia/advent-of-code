@@ -16,7 +16,7 @@ fn get_possible_next_positions(
     Direction::get_all_orthogonal()
         .flat_map(move |dir| pos.vec_sum(&Vec2D::<isize>::from(dir)))
         .flat_map(move |pos| pos.bind_to_map(&map_bounds))
-        .filter(move |new_pos| !map[(new_pos.y, new_pos.x)])
+        .filter(move |new_pos| !map[new_pos])
         .map(|pos| (pos, 1))
 }
 
@@ -56,7 +56,7 @@ impl AocDay18 {
         self.bytes
             .iter()
             .take(BYTE_COUNT)
-            .for_each(|pos| map[(pos.y, pos.x)] = true);
+            .for_each(|pos| map[pos] = true);
 
         let start_pos = Pos::new(0, 0);
         let end_pos = Pos::new(MAP_SIZE, MAP_SIZE);
@@ -83,7 +83,7 @@ impl AocDay18 {
             self.bytes
                 .iter()
                 .take(i)
-                .for_each(|pos| map[(pos.y, pos.x)] = true);
+                .for_each(|pos| map[pos] = true);
 
             if astar(
                 &start_pos,

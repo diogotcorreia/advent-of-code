@@ -13,12 +13,12 @@ fn get_possible_next_positions(
     map: &Array2<char>,
     pos: Pos,
 ) -> impl Iterator<Item = Pos> + use<'_> {
-    let region = map[(pos.y, pos.x)];
+    let region = map[&pos];
     let map_bounds = Pos::new(map.ncols(), map.nrows());
     Direction::get_all_orthogonal()
         .flat_map(move |dir| pos.vec_sum(&Vec2D::<isize>::from(dir)))
         .flat_map(move |pos| pos.bind_to_map(&map_bounds))
-        .filter(move |new_pos| map[(new_pos.y, new_pos.x)] == region)
+        .filter(move |new_pos| map[new_pos] == region)
 }
 
 fn get_perimeter(map: &Array2<char>, pos: Pos) -> usize {
@@ -33,7 +33,7 @@ fn get_perimeter(map: &Array2<char>, pos: Pos) -> usize {
 /// This delta can be negative in the (edge) case that two sides are joined by a tile,
 /// therefore the two separate sides are now a single side.
 fn get_perimeter_mask(map: &Array2<char>, pos: &Pos, visited: &Array2<u8>) -> (isize, u8) {
-    let region = map[(pos.y, pos.x)];
+    let region = map[pos];
     let map_bounds = Pos::new(map.ncols(), map.nrows());
     Direction::get_all_orthogonal()
         .map(move |dir| {
@@ -42,7 +42,7 @@ fn get_perimeter_mask(map: &Array2<char>, pos: &Pos, visited: &Array2<u8>) -> (i
                 dir_mask,
                 pos.vec_sum(&Vec2D::<isize>::from(dir)).and_then(|pos| {
                     pos.bind_to_map(&map_bounds)
-                        .filter(|p| map[(p.y, p.x)] == region)
+                        .filter(|p| map[p] == region)
                 }),
             )
         })
@@ -54,7 +54,7 @@ fn get_perimeter_mask(map: &Array2<char>, pos: &Pos, visited: &Array2<u8>) -> (i
                 if let Some(new_pos) = new_pos {
                     (
                         perimeter_delta
-                            - (unfiltered_mask & visited[(new_pos.y, new_pos.x)]).count_ones()
+                            - (unfiltered_mask & visited[&new_pos]).count_ones()
                                 as isize,
                         unfiltered_mask,
                     )
@@ -88,7 +88,7 @@ impl AocDay<usize, isize> for AocDay12 {
                         bfs_reach(pos, |p| get_possible_next_positions(&self.map, p.clone())).fold(
                             (0, 0),
                             |(area, perimeter), pos| {
-                                visited[(pos.y, pos.x)] = true;
+                                visited[&pos] = true;
                                 let pos_perimeter = get_perimeter(&self.map, pos);
                                 (area + 1, perimeter + pos_perimeter)
                             },
@@ -116,7 +116,7 @@ impl AocDay<usize, isize> for AocDay12 {
                                 let (perimeter_delta, unfiltered_mask) =
                                     get_perimeter_mask(&self.map, &pos, &visited);
                                 // add 1 << 7 so that inner positions are marked as visited
-                                visited[(pos.y, pos.x)] |= (1 << 7) | unfiltered_mask;
+                                visited[&pos] |= (1 << 7) | unfiltered_mask;
                                 (area + 1, perimeter + perimeter_delta)
                             },
                         );

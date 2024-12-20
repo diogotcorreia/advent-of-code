@@ -62,15 +62,15 @@ fn is_loop(
         .vec_sum(&Vec2D::<isize>::from(guard_pos.direction.clone()))
         .and_then(|pos| pos.bind_to_map(map_size))
     {
-        if map[(new_pos.y, new_pos.x)] == Tile::Obstacle || *new_obstacle == new_pos {
+        if map[&new_pos] == Tile::Obstacle || *new_obstacle == new_pos {
             guard_pos.direction = rotate_cw(&guard_pos.direction);
         } else {
             let dir_mask = dir_to_u8(&guard_pos.direction);
-            if seen[(new_pos.y, new_pos.x)] & dir_mask != 0 {
+            if seen[&new_pos] & dir_mask != 0 {
                 // already been in this position: loop
                 return true;
             }
-            seen[(new_pos.y, new_pos.x)] |= dir_mask;
+            seen[&new_pos] |= dir_mask;
             guard_pos.pos = new_pos;
         }
     }
@@ -103,17 +103,17 @@ impl AocDay<usize, usize> for AocDay06 {
         let mut seen = Array2::<bool>::default(self.map.dim());
         let mut guard_pos = self.guard.clone();
 
-        seen[(guard_pos.pos.y, guard_pos.pos.x)] = true;
+        seen[&guard_pos.pos] = true;
 
         while let Some(new_pos) = guard_pos
             .pos
             .vec_sum(&Vec2D::<isize>::from(guard_pos.direction.clone()))
             .and_then(|pos| pos.bind_to_map(&self.map_size))
         {
-            if self.map[(new_pos.y, new_pos.x)] == Tile::Obstacle {
+            if self.map[&new_pos] == Tile::Obstacle {
                 guard_pos.direction = rotate_cw(&guard_pos.direction);
             } else {
-                seen[(new_pos.y, new_pos.x)] = true;
+                seen[&new_pos] = true;
                 guard_pos.pos = new_pos;
             }
         }
@@ -130,11 +130,11 @@ impl AocDay<usize, usize> for AocDay06 {
             .vec_sum(&Vec2D::<isize>::from(guard_pos.direction.clone()))
             .and_then(|pos| pos.bind_to_map(&self.map_size))
         {
-            if self.map[(new_pos.y, new_pos.x)] == Tile::Obstacle {
+            if self.map[&new_pos] == Tile::Obstacle {
                 guard_pos.direction = rotate_cw(&guard_pos.direction);
             } else {
-                let is_new_pos = seen[(new_pos.y, new_pos.x)] == 0;
-                seen[(new_pos.y, new_pos.x)] |= dir_to_u8(&guard_pos.direction);
+                let is_new_pos = seen[&new_pos] == 0;
+                seen[&new_pos] |= dir_to_u8(&guard_pos.direction);
                 if is_new_pos
                     && is_loop(
                         &self.map,

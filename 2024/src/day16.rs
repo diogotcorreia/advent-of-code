@@ -28,7 +28,7 @@ fn find_adjacent_pos(
     let forward = pos
         .pos
         .vec_sum(&Vec2D::<isize>::from(pos.direction.clone()))
-        .filter(|new_pos| map[(new_pos.y, new_pos.x)] != Tile::Wall)
+        .filter(|new_pos| map[new_pos] != Tile::Wall)
         .map(|new_pos| DirectedPos {
             pos: new_pos,
             direction: pos.direction.clone(),
@@ -92,7 +92,7 @@ impl AocDay<usize, usize> for AocDay16 {
             &self.start_pos,
             |pos| find_adjacent_pos(&self.map, pos.clone()),
             |pos| pos_dist(&pos.pos, &self.end_pos),
-            |pos| self.map[(pos.pos.y, pos.pos.x)] == Tile::End,
+            |pos| self.map[&pos.pos] == Tile::End,
         )
         .expect("no solution found");
 
@@ -104,13 +104,13 @@ impl AocDay<usize, usize> for AocDay16 {
             &self.start_pos,
             |pos| find_adjacent_pos(&self.map, pos.clone()),
             |pos| pos_dist(&pos.pos, &self.end_pos),
-            |pos| self.map[(pos.pos.y, pos.pos.x)] == Tile::End,
+            |pos| self.map[&pos.pos] == Tile::End,
         )
         .expect("no solution found");
 
         paths.for_each(|path| {
             path.iter().for_each(|p| {
-                visited[(p.pos.y, p.pos.x)] = true;
+                visited[&p.pos] = true;
             })
         });
 

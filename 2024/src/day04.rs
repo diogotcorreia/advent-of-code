@@ -43,7 +43,7 @@ fn count_xmas_word(board: &Array2<Letter>, pos: Pos) -> usize {
             usize::from(is_word(
                 (0..4)
                     .filter_map(|i| move_pos(&pos, $direction, i, board.dim()))
-                    .map(|pos| board[(pos.y, pos.x)].clone()),
+                    .map(|pos| board[&pos].clone()),
             ))
         };
     }
@@ -70,7 +70,7 @@ fn count_x_mas(board: &Array2<Letter>, pos: Pos) -> bool {
             is_mas(
                 (-1..=1)
                     .filter_map(|i| move_pos(&pos, $direction, i, board.dim()))
-                    .map(|pos| board[(pos.y, pos.x)].clone()),
+                    .map(|pos| board[&pos].clone()),
             )
         };
     }

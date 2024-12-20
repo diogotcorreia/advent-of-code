@@ -1,3 +1,6 @@
+use std::ops::{Index, IndexMut};
+
+use ndarray::Array2;
 use num_traits::{CheckedAdd, CheckedMul, CheckedSub, Euclid, One, Signed, Zero};
 
 /// The sign of an integer.
@@ -225,5 +228,19 @@ impl<T: One + Zero + Signed> From<Direction> for Vec2D<T> {
                 y: -T::one(),
             },
         }
+    }
+}
+
+impl<T> Index<&Vec2D<usize>> for Array2<T> {
+    type Output = T;
+
+    fn index(&self, index: &Vec2D<usize>) -> &Self::Output {
+        self.index((index.y, index.x))
+    }
+}
+
+impl<T> IndexMut<&Vec2D<usize>> for Array2<T> {
+    fn index_mut(&mut self, index: &Vec2D<usize>) -> &mut Self::Output {
+        self.index_mut((index.y, index.x))
     }
 }
