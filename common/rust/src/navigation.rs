@@ -181,7 +181,7 @@ impl<T: PartialOrd + Default> Vec2D<T> {
 }
 
 impl<T: Euclid> Vec2D<T> {
-    pub fn wrap_out_of_bounds(self, upper_bound: &Self) -> Self {
+    pub fn wrap_out_of_bounds(&self, upper_bound: &Self) -> Self {
         Self {
             x: self.x.rem_euclid(&upper_bound.x),
             y: self.y.rem_euclid(&upper_bound.y),
