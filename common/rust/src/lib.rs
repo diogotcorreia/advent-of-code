@@ -1,3 +1,4 @@
+#![feature(step_trait)]
 use std::{fmt::Display, num::ParseIntError};
 
 pub mod bootstrap;

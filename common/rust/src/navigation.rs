@@ -1,3 +1,4 @@
+use std::iter::Step;
 use std::ops::{Index, IndexMut};
 
 use ndarray::Array2;
@@ -186,6 +187,30 @@ impl<T: Euclid> Vec2D<T> {
             x: self.x.rem_euclid(&upper_bound.x),
             y: self.y.rem_euclid(&upper_bound.y),
         }
+    }
+}
+
+pub trait VecRadius<D>
+where
+    Self: Sized,
+{
+    fn all_points_manhattan_dist(&self, distance: D) -> impl Iterator<Item = (Self, D)>;
+}
+
+impl<T, D: Step + Copy + Signed> VecRadius<D> for Vec2D<T>
+where
+    Self: VecSum<Vec2D<D>>,
+{
+    fn all_points_manhattan_dist(&self, distance: D) -> impl Iterator<Item = (Self, D)> {
+        (-distance..=distance).flat_map(move |dist_x| {
+            let remaining_distance = distance - dist_x.abs();
+            (-remaining_distance..=remaining_distance).flat_map(move |dist_y| {
+                let delta_pos = Vec2D::<D>::new(dist_x, dist_y);
+
+                self.vec_sum(&delta_pos)
+                    .map(|p| (p, dist_x.abs() + dist_y.abs()))
+            })
+        })
     }
 }
 
