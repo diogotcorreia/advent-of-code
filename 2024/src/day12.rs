@@ -40,10 +40,8 @@ fn get_perimeter_mask(map: &Array2<char>, pos: &Pos, visited: &Array2<u8>) -> (i
             let dir_mask = dir.to_mask();
             (
                 dir_mask,
-                pos.vec_sum(&Vec2D::<isize>::from(dir)).and_then(|pos| {
-                    pos.bind_to_map(&map_bounds)
-                        .filter(|p| map[p] == region)
-                }),
+                pos.vec_sum(&Vec2D::<isize>::from(dir))
+                    .and_then(|pos| pos.bind_to_map(&map_bounds).filter(|p| map[p] == region)),
             )
         })
         // sort here so that we can know the full mask before calculating the delta
@@ -54,8 +52,7 @@ fn get_perimeter_mask(map: &Array2<char>, pos: &Pos, visited: &Array2<u8>) -> (i
                 if let Some(new_pos) = new_pos {
                     (
                         perimeter_delta
-                            - (unfiltered_mask & visited[&new_pos]).count_ones()
-                                as isize,
+                            - (unfiltered_mask & visited[&new_pos]).count_ones() as isize,
                         unfiltered_mask,
                     )
                 } else {

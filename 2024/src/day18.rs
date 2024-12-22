@@ -80,10 +80,7 @@ impl AocDay18 {
         while low != high {
             let i = (low + high + 1) / 2;
             let mut map = Array2::default((MAP_SIZE + 1, MAP_SIZE + 1));
-            self.bytes
-                .iter()
-                .take(i)
-                .for_each(|pos| map[pos] = true);
+            self.bytes.iter().take(i).for_each(|pos| map[pos] = true);
 
             if astar(
                 &start_pos,
