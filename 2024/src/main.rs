@@ -30,7 +30,7 @@ mod day21;
 mod day22;
 mod day23;
 mod day24;
-// mod day25;
+mod day25;
 
 fn main() -> Result<(), Error> {
     let puzzle_index = get_puzzle_index()?;
@@ -63,7 +63,7 @@ fn main() -> Result<(), Error> {
         22 => run_day(day22::AocDay22::preprocessing(input)?, part_number),
         23 => run_day(day23::AocDay23::preprocessing(input)?, part_number),
         24 => run_day(day24::AocDay24::preprocessing(input)?, part_number),
-        // 25 => run_day(day25::AocDay25::preprocessing(input)?, part_number),
+        25 => run_day(day25::AocDay25::preprocessing(input)?, part_number),
         _ => unimplemented!("Unknown puzzle"),
     };
 
