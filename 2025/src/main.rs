@@ -4,7 +4,7 @@ use aoc_common::{
     AocDay,
 };
 
-// mod day01;
+mod day01;
 // mod day02;
 // mod day03;
 // mod day04;
@@ -37,7 +37,7 @@ fn main() -> Result<(), Error> {
     let input = get_puzzle_input(puzzle_index)?;
 
     match puzzle_index {
-        // 1 => run_day(day01::AocDay01::preprocessing(input)?, part_number),
+        1 => run_day(day01::AocDay01::preprocessing(input)?, part_number),
         // 2 => run_day(day02::AocDay02::preprocessing(input)?, part_number),
         // 3 => run_day(day03::AocDay03::preprocessing(input)?, part_number),
         // 4 => run_day(day04::AocDay04::preprocessing(input)?, part_number),
