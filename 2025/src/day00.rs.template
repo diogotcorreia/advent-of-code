@@ -1,0 +1,40 @@
+use aoc_common::{AocDay, DayError};
+
+pub struct AocDay00 {
+    // TODO
+}
+
+impl AocDay<usize, usize> for AocDay00 {
+    fn preprocessing(lines: impl Iterator<Item = String>) -> Result<Self, DayError> {
+        // TODO
+
+        Ok(AocDay00 { /* TODO */ })
+    }
+    fn part1(&self) -> usize {
+        todo!()
+    }
+    fn part2(&self) -> usize {
+        todo!()
+    }
+}
+
+#[cfg(test)]
+mod day00tests {
+    use super::*;
+
+    const INPUT: &[&str] = &[""];
+
+    #[test]
+    fn part1() -> Result<(), DayError> {
+        let day = AocDay00::preprocessing_tests(INPUT)?;
+        assert_eq!(day.part1(), todo!());
+        Ok(())
+    }
+
+    #[test]
+    fn part2() -> Result<(), DayError> {
+        let day = AocDay00::preprocessing_tests(INPUT)?;
+        assert_eq!(day.part2(), todo!());
+        Ok(())
+    }
+}

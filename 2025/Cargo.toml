@@ -1,0 +1,16 @@
+[package]
+name = "aoc2025"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+members = [".", "common", "common/macros"]
+
+[dependencies]
+aoc-common = { path = "common" }
+aoc-common-macros = { path = "common/macros" }
+itertools = "0.14.0"
+memoize = "0.5.1"
+ndarray = "0.17.1"
+pathfinding = "4.14.0"
+regex = "1.12.2"

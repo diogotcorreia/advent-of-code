@@ -13,3 +13,4 @@ The event consists on solving various programming challenges, starting on Decemb
 - **2022**: Mainly solved in Rust, all puzzles
 - **2023**: Mainly solved in Rust, all puzzles
 - **2024**: Mainly solved in Rust, all puzzles
+- **2025**: Mainly solved in Rust, all puzzles
