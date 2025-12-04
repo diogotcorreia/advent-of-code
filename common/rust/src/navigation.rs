@@ -62,6 +62,20 @@ pub enum Direction {
 }
 
 impl Direction {
+    pub fn get_all() -> impl Iterator<Item = Direction> {
+        [
+            Direction::North,
+            Direction::NorthEast,
+            Direction::East,
+            Direction::SouthEast,
+            Direction::South,
+            Direction::SouthWest,
+            Direction::West,
+            Direction::NorthWest,
+        ]
+        .into_iter()
+    }
+
     pub fn get_all_orthogonal() -> impl Iterator<Item = Direction> {
         [
             Direction::North,
