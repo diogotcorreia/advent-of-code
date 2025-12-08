@@ -9,6 +9,7 @@ members = [".", "common", "common/macros"]
 [dependencies]
 aoc-common = { path = "common" }
 aoc-common-macros = { path = "common/macros" }
+disjoint = "0.8.0"
 itertools = "0.14.0"
 memoize = "0.5.1"
 ndarray = "0.17.1"

@@ -45,6 +45,7 @@ version = "0.1.0"
 dependencies = [
  "aoc-common",
  "aoc-common-macros",
+ "disjoint",
  "itertools",
  "memoize",
  "ndarray",
@@ -75,6 +76,12 @@ dependencies = [
  "semver",
  "syn 2.0.111",
 ]
+
+[[package]]
+name = "disjoint"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c37b399c91d093763e38c7a57a740e0005e30e5aff7132e791aada5eef3fed99"
 
 [[package]]
 name = "either"
